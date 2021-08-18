@@ -3,11 +3,12 @@ using UnityEngine.Events;
 
 public class Hitbox : MonoBehaviour
 {
+    public UnityEvent onShot;
     public UnityEvent<GameObject> onAlert;
     
     public void Shoot()
     {
-        Destroy(transform.root.gameObject);
+        onShot.Invoke();
     }
 
     public void Alert(GameObject originator)
