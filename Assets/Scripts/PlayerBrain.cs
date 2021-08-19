@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public class PlayerBrain : MonoBehaviour
 {
     [Header("Dependencies")]
     public Transform lookTransform = null;
-    CharacterController controller = null;
+    public CharacterController controller = null;
+    public Animator armsAnimator = null;
+    [Header("Events")]
+    public UnityEvent onShoot;
     [Header("Settings")]
     public float maxLookX = 90.0f;
     public float lookSensitivity = 2.0f;
@@ -13,11 +16,6 @@ public class PlayerController : MonoBehaviour
     // Variables
     float lookX = 0.0f;
     float lookY = 0.0f;
-
-    void Awake()
-    {
-        controller = GetComponent<CharacterController>();
-    }
 
     void Start()
     {
@@ -29,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         Look();
         Move();
+        Shoot();
     }
 
     void CursorLock()
@@ -78,5 +77,13 @@ public class PlayerController : MonoBehaviour
         Vector3 movement = moveDirection * walkSpeed * Time.deltaTime;
 
         controller.Move(movement);
+    }
+
+    void Shoot()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            onShoot.Invoke();
+        }
     }
 }
