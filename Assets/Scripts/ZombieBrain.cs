@@ -10,17 +10,13 @@ public class ZombieBrain : MonoBehaviour
         Chase
     }
 
-    NavMeshAgent navAgent = null;
+    [Header("Dependencies")]
+    public NavMeshAgent navAgent = null;
     // Variables
     ZombieBrainState state = ZombieBrainState.Idle;
     float idleTimer = 0.0f;
     float idleTime = 0.0f;
     Transform chaseTarget = null;
-
-    void Awake()
-    {
-        navAgent = GetComponent<NavMeshAgent>();
-    }
 
     void Update()
     {
@@ -74,5 +70,10 @@ public class ZombieBrain : MonoBehaviour
     {
         state = ZombieBrainState.Chase;
         chaseTarget = originator.transform;
+    }
+
+    public void Die()
+    {
+        Destroy(transform.root.gameObject);
     }
 }
