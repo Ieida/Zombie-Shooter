@@ -18,15 +18,17 @@ public class Gun : MonoBehaviour
         Vector3 origin = shootTransform.position;
         Vector3 direction = shootTransform.forward;
 
-        Collider[] colliders = Physics.OverlapSphere(origin, 20.0f, alertMask);
-        foreach (var coll in colliders)
-        {
-        }
-
         bool isHit = Physics.Raycast(origin, direction, out RaycastHit hit, range, hitMask);
 
         if (isHit)
         {
+            hit.collider.SendMessage("OnShotHit", SendMessageOptions.DontRequireReceiver);
+        }
+
+        Collider[] colliders = Physics.OverlapSphere(origin, 20.0f, alertMask);
+        foreach (var coll in colliders)
+        {
+            coll.SendMessage("OnShotHear", SendMessageOptions.DontRequireReceiver);
         }
     }
 }
