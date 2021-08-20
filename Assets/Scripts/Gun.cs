@@ -26,7 +26,7 @@ public class Gun : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(origin, 20.0f);
         foreach (var coll in colliders)
         {
-            coll.SendMessage("OnShotHear", SendMessageOptions.DontRequireReceiver);
+            coll.SendMessage("OnShotHear", origin, SendMessageOptions.DontRequireReceiver);
         }
     }
 }
