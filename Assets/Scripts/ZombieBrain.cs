@@ -38,6 +38,11 @@ public class ZombieBrain : MonoBehaviour
         Alert(position);
     }
 
+    void OnSoundHear(Vector3 soundPosition)
+    {
+        Alert(soundPosition);
+    }
+
     void Idle()
     {
         if (state == ZombieBrainState.Idle)
