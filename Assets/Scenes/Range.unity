@@ -992,7 +992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 319277816733720512, guid: 3b71dc9d9a62584478bbba53d13a1fb3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 319277816733720512, guid: 3b71dc9d9a62584478bbba53d13a1fb3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1042,6 +1042,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1399980086}
+    - target: {fileID: 319277817774900906, guid: 3b71dc9d9a62584478bbba53d13a1fb3, type: 3}
+      propertyPath: ringPositionOffset.y
+      value: -9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b71dc9d9a62584478bbba53d13a1fb3, type: 3}
 --- !u!1001 &8004737095645679300

@@ -4,11 +4,15 @@ public class Bell : MonoBehaviour
 {
     [Header("Settings")]
     public float ringRadius = 50.0f;
+    public Vector3 ringPositionOffset = Vector3.zero;
 
     void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.red;
+        Vector3 ringPosition = transform.position + ringPositionOffset;
+        Gizmos.DrawSphere(ringPosition, 0.1f);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, ringRadius);
+        Gizmos.DrawWireSphere(ringPosition, ringRadius);
     }
 
     void OnShotHit()
@@ -18,7 +22,7 @@ public class Bell : MonoBehaviour
 
     void Ring()
     {
-        Vector3 ringPosition = transform.position;
+        Vector3 ringPosition = transform.position + ringPositionOffset;
         Collider[] colliders = Physics.OverlapSphere(ringPosition, ringRadius);
         foreach (var coll in colliders)
         {
