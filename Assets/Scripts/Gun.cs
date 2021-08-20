@@ -21,22 +21,12 @@ public class Gun : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(origin, 20.0f, alertMask);
         foreach (var coll in colliders)
         {
-            if (coll.TryGetComponent(out Hitbox hitbox))
-            {
-                hitbox.Hit(gameObject, direction);
-            }
         }
 
         bool isHit = Physics.Raycast(origin, direction, out RaycastHit hit, range, hitMask);
 
         if (isHit)
         {
-            bool isHitbox = hit.collider.TryGetComponent(out Hitbox hitbox);
-
-            if (isHitbox)
-            {
-                hitbox.Hit(gameObject, direction, damage);
-            }
         }
     }
 }
