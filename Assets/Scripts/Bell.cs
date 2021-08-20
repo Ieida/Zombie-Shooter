@@ -13,7 +13,6 @@ public class Bell : MonoBehaviour
 
     void OnShotHit()
     {
-        Debug.Log("ShotHit");
         Ring();
     }
 
@@ -23,7 +22,6 @@ public class Bell : MonoBehaviour
         Collider[] colliders = Physics.OverlapSphere(ringPosition, ringRadius);
         foreach (var coll in colliders)
         {
-            Debug.Log(coll);
             coll.SendMessage("OnSoundHear", ringPosition, SendMessageOptions.DontRequireReceiver);
         }
     }
