@@ -8,7 +8,7 @@ public class ZombieBrain : MonoBehaviour
         Idle,
         Wander,
         Chase,
-        Inspect
+        Investigate
     }
 
     [Header("Dependencies")]
@@ -25,7 +25,7 @@ public class ZombieBrain : MonoBehaviour
         Wander();
         Idle();
         Chase();
-        Inspect();
+        Investigate();
     }
 
     void OnShotHit()
@@ -87,9 +87,9 @@ public class ZombieBrain : MonoBehaviour
         }
     }
 
-    void Inspect()
+    void Investigate()
     {
-        if (state == ZombieBrainState.Inspect)
+        if (state == ZombieBrainState.Investigate)
         {
             if (navAgent.remainingDistance < 0.5f)
             {
@@ -109,7 +109,7 @@ public class ZombieBrain : MonoBehaviour
 
     public void Alert(Vector3 position)
     {
-        state = ZombieBrainState.Inspect;
+        state = ZombieBrainState.Investigate;
         navAgent.SetDestination(position);
     }
 
