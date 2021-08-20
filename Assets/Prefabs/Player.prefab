@@ -49,10 +49,10 @@ MonoBehaviour:
   shootTransform: {fileID: 8261376866568999805}
   hitMask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 1
   alertMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1
   range: 50
   damage: 1
 --- !u!1 &924343559689917971

@@ -6,8 +6,6 @@ public class Gun : MonoBehaviour
     public Animator gunAnimator = null;
     public Transform shootTransform = null;
     [Header("Settings")]
-    public LayerMask hitMask = default(LayerMask);
-    public LayerMask alertMask = default(LayerMask);
     public float range = 50.0f;
     public int damage = 1;
 
@@ -18,14 +16,14 @@ public class Gun : MonoBehaviour
         Vector3 origin = shootTransform.position;
         Vector3 direction = shootTransform.forward;
 
-        bool isHit = Physics.Raycast(origin, direction, out RaycastHit hit, range, hitMask);
+        bool isHit = Physics.Raycast(origin, direction, out RaycastHit hit, range);
 
         if (isHit)
         {
             hit.collider.SendMessage("OnShotHit", SendMessageOptions.DontRequireReceiver);
         }
 
-        Collider[] colliders = Physics.OverlapSphere(origin, 20.0f, alertMask);
+        Collider[] colliders = Physics.OverlapSphere(origin, 20.0f);
         foreach (var coll in colliders)
         {
             coll.SendMessage("OnShotHear", SendMessageOptions.DontRequireReceiver);
