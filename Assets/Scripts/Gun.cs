@@ -23,7 +23,7 @@ public class Gun : MonoBehaviour
         {
             if (coll.TryGetComponent(out Hitbox hitbox))
             {
-                hitbox.Hit(gameObject);
+                hitbox.Hit(gameObject, direction);
             }
         }
 
@@ -35,7 +35,7 @@ public class Gun : MonoBehaviour
 
             if (isHitbox)
             {
-                hitbox.Hit(gameObject, damage);
+                hitbox.Hit(gameObject, direction, damage);
             }
         }
     }

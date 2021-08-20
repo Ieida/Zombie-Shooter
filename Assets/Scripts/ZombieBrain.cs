@@ -12,6 +12,7 @@ public class ZombieBrain : MonoBehaviour
 
     [Header("Dependencies")]
     public NavMeshAgent navAgent = null;
+    public Animator modelAnimator = null;
     // Variables
     ZombieBrainState state = ZombieBrainState.Idle;
     float idleTimer = 0.0f;
@@ -20,8 +21,8 @@ public class ZombieBrain : MonoBehaviour
 
     void Update()
     {
-        Idle();
         Wander();
+        Idle();
         Chase();
     }
 
@@ -33,10 +34,11 @@ public class ZombieBrain : MonoBehaviour
             if (idleTimer >= idleTime)
             {
                 state = ZombieBrainState.Wander;
-                Vector3 randomPosition = Random.insideUnitSphere;
+                Vector3 randomPosition = Random.insideUnitSphere * 10.0f;
                 randomPosition.y = 0.0f;
                 Vector3 destination = transform.position + randomPosition;
                 navAgent.SetDestination(destination);
+                modelAnimator.SetBool("IsWalking", true);
             }
         }
     }
@@ -49,7 +51,8 @@ public class ZombieBrain : MonoBehaviour
             {
                 state = ZombieBrainState.Idle;
                 idleTimer = 0.0f;
-                idleTime = Random.Range(0.0f, 5.0f);
+                idleTime = Random.Range(2.0f, 5.0f);
+                modelAnimator.SetBool("IsWalking", false);
             }
         }
     }
@@ -62,6 +65,7 @@ public class ZombieBrain : MonoBehaviour
             if (distance > 0.5f)
             {
                 navAgent.SetDestination(chaseTarget.position);
+                modelAnimator.SetBool("IsWalking", true);
             }
         }
     }
@@ -74,6 +78,23 @@ public class ZombieBrain : MonoBehaviour
 
     public void Die()
     {
-        Destroy(transform.root.gameObject);
+        gameObject.SetActive(false);
+        navAgent.isStopped = true;
+        modelAnimator.SetTrigger("DieBackwards");
+    }
+
+    public void Die(Vector3 direction)
+    {
+        gameObject.SetActive(false);
+        navAgent.isStopped = true;
+        float dot = Vector3.Dot(navAgent.transform.forward, direction);
+        if (dot > 0.0f)
+        {
+            modelAnimator.SetTrigger("DieForwards");
+        }
+        else
+        {
+            modelAnimator.SetTrigger("DieBackwards");
+        }
     }
 }
