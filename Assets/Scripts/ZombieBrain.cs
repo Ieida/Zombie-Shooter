@@ -26,6 +26,7 @@ public class ZombieBrain : MonoBehaviour
     public void Die()
     {
         navAgent.isStopped = true;
+        GetComponent<Collider>().enabled = false;
         modelAnimator.SetTrigger("DieBackwards");
     }
 
