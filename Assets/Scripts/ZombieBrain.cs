@@ -7,7 +7,8 @@ public class ZombieBrain : MonoBehaviour
     {
         Idle,
         Wander,
-        Chase
+        Chase,
+        Investigate
     }
 
     [Header("Dependencies")]
@@ -24,6 +25,22 @@ public class ZombieBrain : MonoBehaviour
         Wander();
         Idle();
         Chase();
+        Investigate();
+    }
+
+    void OnShotHit()
+    {
+        Die();
+    }
+
+    void OnShotHear(Vector3 position)
+    {
+        Alert(position);
+    }
+
+    void OnSoundHear(Vector3 soundPosition)
+    {
+        Alert(soundPosition);
     }
 
     void Idle()
@@ -70,15 +87,35 @@ public class ZombieBrain : MonoBehaviour
         }
     }
 
+    void Investigate()
+    {
+        if (state == ZombieBrainState.Investigate)
+        {
+            if (navAgent.remainingDistance < 0.5f)
+            {
+                state = ZombieBrainState.Idle;
+                idleTimer = 0.0f;
+                idleTime = Random.Range(2.0f, 5.0f);
+                modelAnimator.SetBool("IsWalking", false);
+            }
+        }
+    }
+
     public void Alert(GameObject originator)
     {
         state = ZombieBrainState.Chase;
         chaseTarget = originator.transform;
     }
 
+    public void Alert(Vector3 position)
+    {
+        state = ZombieBrainState.Investigate;
+        navAgent.SetDestination(position);
+    }
+
     public void Die()
     {
-        gameObject.SetActive(false);
+        enabled = false;
         navAgent.isStopped = true;
         modelAnimator.SetTrigger("DieBackwards");
     }
