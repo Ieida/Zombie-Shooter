@@ -1,1 +1,1 @@
-This is an open repository, contribute as you wish.
+This is an open project, contribute as you wish.
