@@ -63,7 +63,7 @@ public class ZoombieShooter : MonoBehaviour
                 Debug.LogError(" There are two ZoombieShotter in the game");
                 return;
             }
-            S = _S;
+            _S = value;
         }
     }
 
@@ -81,8 +81,9 @@ public class ZoombieShooter : MonoBehaviour
 
     private void Awake()
     {
+       
+        S = this;
         CURRENT_GAME_STATE = eGameStates.mainMenu;
-        _S = this;
     }
     // Start is called before the first frame update
     void Start()
