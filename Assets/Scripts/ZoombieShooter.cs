@@ -23,8 +23,10 @@ public class ZoombieShooter : MonoBehaviour
     }
 
     [Header("Set in Inspector")]
-    public Camera mainCamera;
-    public string startSceneName;
+    public Camera mainMenuCamera;
+    public GameObject player;
+
+    public List<string> levels;
 
     [Header("Dynamic Fields")]
     public eGameStates _currentGameState;
@@ -74,14 +76,23 @@ public class ZoombieShooter : MonoBehaviour
     {
         CURRENT_GAME_STATE = eGameStates.level;
         //TODO: Load StartScene
-        SceneManager.LoadScene(startSceneName, LoadSceneMode.Additive);
-        mainCamera.enabled = false;
+        if(levels!= null && levels.Count != 0)
+        {
+            SceneManager.LoadScene(levels[0], LoadSceneMode.Additive);
+            mainMenuCamera.enabled = false;
+            player.SetActive(true);
+        }
+        else
+        {
+            Debug.LogError("Error: missing levels reference - You should set the name of the levels in the Inspector!");
+        }
+      
     }
 
 
     private void Awake()
     {
-       
+        player.SetActive(false);
         S = this;
         CURRENT_GAME_STATE = eGameStates.mainMenu;
     }

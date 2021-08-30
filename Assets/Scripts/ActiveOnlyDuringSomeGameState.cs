@@ -17,7 +17,9 @@ public class ActiveOnlyDuringSomeGameState : MonoBehaviour
 
     private void SetGameObjectState(ZoombieShooter.eGameStates currentGameState)
     {
-        bool shouldBeActive = (currentGameState & activeState) == activeState;
+
+        Debug.Log(" calling set gameObject state");
+        bool shouldBeActive = (currentGameState & activeState) == currentGameState;
 
         gameObject.SetActive(shouldBeActive);
 
