@@ -17,10 +17,21 @@ public class PlayerBrain : MonoBehaviour
     float lookX = 0.0f;
     float lookY = 0.0f;
 
-    void Start()
+    private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
+    void Start()
+    {
+      
     }
 
     void Update()
